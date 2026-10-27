@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soporte >_ Aula — Gestión de Incidencias Informáticas para Centros Educativos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       SISTEMA DE DISEÑO EDITORIAL + PALETA LOGOTIPO SOPORTE >_ AULA
+       ========================================================================== */
+    :root,
+    [data-theme="light"] {
+      --slate-dark: #1E2327;
+      --slate-logo: #2C3238;
+      --slate-medium: #384047;
+      --canvas-bg: #F0F2EF;
+      --card-surface: #F8FAF7;
+      --secondary-surface: #E2E7E3;
+      --feature-surface: #DFF2E8;
+      --warning-surface: #F3E8D3;
+      --error-surface: #F4E1DE;
+      --error-text: #7A271A;
+      --cloud-medium: #68726D;
+      --cloud-dark: #4E5753;
+      --stone-border: #C8CFCB;
+      --accent-green: #00D66C;
+      --accent-green-deep: #00B359;
+      --accent-green-text: #008A45;
+      --cta-text-color: #14171A;
+      --footer-bg: #1E2327;
+
+      --font-serif: 'Source Serif 4', Georgia, Charter, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+      --max-width: 1280px;
+      --radius-card: 24px;
+      --radius-btn-bottom: 0 0 8px 8px;
+      --radius-btn-outline: 12px;
+    }
+
+    [data-theme="dark"] {
+      --slate-dark: #ECEFEA;
+      --slate-logo: #ECEFEA;
+      --slate-medium: #323940;
+      --canvas-bg: #14171A;
+      --card-surface: #1D2226;
+      --secondary-surface: #262C31;
+      --feature-surface: #162B22;
+      --warning-surface: #2E2516;
+      --error-surface: #331B19;
+      --error-text: #F59E92;
+      --cloud-medium: #8E9893;
+      --cloud-dark: #B5BFB9;
+      --stone-border: #323940;
+      --accent-green: #00D66C;
+      --accent-green-deep: #00B359;
+      --accent-green-text: #00D66C;
+      --cta-text-color: #14171A;
+      --footer-bg: #0F1214;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--canvas-bg);
+      color: var(--slate-dark);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    body {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      line-height: 1.4;
+      background-color: var(--canvas-bg);
+      color: var(--slate-dark);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; width: 100%; }
+
+    /* Escala Tipográfica Editorial */
+    .display-serif { font-family: var(--font-serif); font-size: clamp(36px, 4.2vw, 64px); font-weight: 400; line-height: 1.1; color: var(--slate-dark); }
+    .heading-sans { font-family: var(--font-sans); font-size: clamp(32px, 3.6vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.12px; color: var(--slate-dark); }
+    .subheading { font-family: var(--font-sans); font-size: 24px; font-weight: 600; line-height: 1.3; letter-spacing: -0.05px; color: var(--slate-dark); }
+    .body-copy { font-family: var(--font-serif); font-size: 20px; line-height: 1.4; color: var(--slate-dark); }
+    .body-sm { font-family: var(--font-sans); font-size: 15px; line-height: 1.35; letter-spacing: -0.005em; }
+    .caption { font-family: var(--font-sans); font-size: 12px; font-weight: 600; line-height: 1.4; letter-spacing: -0.02em; text-transform: uppercase; }
+    .mono-tag { font-family: var(--font-mono); font-size: 14px; line-height: 1.4; }
+
+    .inline-link {
+      color: var(--slate-dark);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .inline-link:hover { color: var(--cloud-dark); }
+
+    /* Botones con radio inferior de 8px y sin sombras */
+    .btn-ivory {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      background-color: var(--card-surface);
+      color: var(--slate-dark);
+      border: 1px solid var(--stone-border);
+      border-top: 1px solid var(--slate-dark);
+      border-radius: var(--radius-btn-bottom);
+      padding: 12px 24px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-ivory:hover:not(:disabled) { background-color: var(--secondary-surface); }
+
+    .btn-theme-toggle {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      background-color: var(--secondary-surface);
+      color: var(--slate-dark);
+      border: 1px solid var(--stone-border);
+      border-radius: var(--radius-btn-bottom);
+      padding: 9px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-theme-toggle:hover { border-color: var(--slate-dark); }
+
+    .btn-accent {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      background-color: var(--accent-green);
+      color: var(--cta-text-color);
+      border: none;
+      border-radius: var(--radius-btn-bottom);
+      padding: 13px 28px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+    .btn-accent:hover:not(:disabled) { background-color: var(--accent-green-deep); }
+    .btn-accent:disabled, .btn-ivory:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-outlined-dark {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      background: transparent;
+      color: #F8FAF7;
+      border: 1px solid #68726D;
+      border-radius: var(--radius-btn-outline);
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .btn-outlined-dark:hover { border-color: #F8FAF7; }
+
+    .nav-text-btn {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      background: transparent;
+      color: var(--cloud-medium);
+      border: none;
+      padding: 22px 12px;
+      cursor: pointer;
+    }
+    .nav-text-btn:hover, .nav-text-btn.active-nav {
+      color: var(--slate-dark);
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: none;
+      animation: spin 0.7s linear infinite;
+    }
+    .loading .spinner { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .auth-top-utility {
+      padding: 18px 0 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Autenticación */
+    #auth-shell { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 16px 0 44px; }
+    .auth-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 44px; align-items: stretch; margin-top: 16px; }
+    .auth-editorial-panel {
+      background-color: var(--feature-surface);
+      border: 1px solid var(--stone-border);
+      border-radius: var(--radius-card);
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .auth-form-card {
+      background-color: var(--card-surface);
+      border: 1px solid var(--stone-border);
+      border-radius: var(--radius-card);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .auth-view-pane { display: none; flex-direction: column; gap: 18px; }
+    .auth-view-pane.active-auth-pane { display: flex; }
+
+    .field-block { display: flex; flex-direction: column; gap: 6px; }
+    .field-block label {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--slate-dark);
+    }
+    .input-clean {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      background-color: var(--canvas-bg);
+      color: var(--slate-dark);
+      border: 1px solid var(--stone-border);
+      border-radius: 0;
+      padding: 10px 14px;
+      width: 100%;
+    }
+    .input-clean:focus { outline: 1px solid var(--slate-dark); background-color: var(--card-surface); }
+
+    .password-wrapper { position: relative; display: flex; align-items: center; }
+    .password-wrapper .input-clean { padding-right: 88px; }
+    .toggle-pass-btn {
+      position: absolute;
+      right: 8px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background-color: var(--secondary-surface);
+      color: var(--slate-dark);
+      border: 1px solid var(--stone-border);
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .alert-box {
+      padding: 14px 18px;
+      border: 1px solid var(--slate-dark);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.4;
+      display: none;
+    }
+    .alert-box.error { background-color: var(--error-surface); border-color: var(--error-text); color: var(--error-text); display: block; }
+    .alert-box.success { background-color: var(--feature-surface); border-color: var(--slate-dark); color: var(--slate-dark); display: block; }
+    .alert-box.warning { background-color: var(--warning-surface); border-color: var(--slate-dark); color: var(--slate-dark); display: block; }
+
+    /* Área Privada */
+    #app-shell { display: none; flex: 1; flex-direction: column; }
+    .trial-status-strip { background-color: var(--secondary-surface); border-bottom: 1px solid var(--stone-border); padding: 10px 32px; }
+    .trial-status-strip.expiring-soon { background-color: var(--warning-surface); }
+    .trial-status-strip.expired { background-color: var(--error-surface); color: var(--error-text); }
+    .trial-strip-inner { max-width: var(--max-width); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .top-nav { position: sticky; top: 0; z-index: 1000; background-color: var(--canvas-bg); border-bottom: 1px solid var(--stone-border); }
+    .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .user-session-badge { display: flex; align-items: center; gap: 10px; background-color: var(--card-surface); border: 1px solid var(--stone-border); padding: 6px 14px; }
+
+    .app-section { display: none; padding: 44px 0 76px; }
+    .app-section.active-section { display: block; }
+
+    .header-split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 36px; align-items: end; padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--stone-border); }
+    .featured-banner { background-color: var(--feature-surface); border: 1px solid var(--stone-border); border-radius: var(--radius-card); padding: 36px 44px; margin-bottom: 36px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: center; }
+    .card-standard { background-color: var(--card-surface); border: 1px solid var(--stone-border); border-radius: var(--radius-card); padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+    .panel-secondary { background-color: var(--secondary-surface); border: 1px solid var(--stone-border); border-radius: var(--radius-card); padding: 26px; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .equipment-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+
+    .equip-option {
+      background-color: var(--card-surface);
+      border: 1px solid var(--stone-border);
+      border-radius: 16px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--slate-dark);
+    }
+    .equip-option.active-equip { background-color: var(--feature-surface); border-color: var(--slate-dark); }
+
+    .status-stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding-top: 6px; }
+    .step-pill { padding: 6px 8px; font-family: var(--font-sans); font-size: 11px; font-weight: 700; text-transform: uppercase; text-align: center; background-color: var(--secondary-surface); color: var(--cloud-medium); border: 1px solid var(--stone-border); }
+    .step-pill.current-step { background-color: var(--slate-dark); color: var(--canvas-bg); border-color: var(--slate-dark); }
+    .step-pill.resolved-step { background-color: var(--accent-green); color: var(--cta-text-color); border-color: var(--slate-dark); }
+
+    .chart-row { margin-bottom: 20px; }
+    .chart-row-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .chart-track { width: 100%; height: 16px; background-color: var(--secondary-surface); border: 1px solid var(--stone-border); }
+    .chart-fill { height: 100%; background-color: var(--slate-dark); transition: width 0.25s ease; }
+    .chart-fill.top-fault { background-color: var(--accent-green); }
+
+    .modal-overlay { position: fixed; inset: 0; background-color: rgba(10, 12, 14, 0.78); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background-color: var(--card-surface); border: 1px solid var(--slate-dark); border-radius: var(--radius-card); max-width: 660px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 36px; display: flex; flex-direction: column; gap: 18px; }
+
+    footer.site-footer { background-color: var(--footer-bg); color: #F8FAF7; border-top: 1px solid var(--slate-medium); padding: 44px 0; margin-top: auto; }
+
+    @media (max-width: 980px) {
+      .auth-grid, .header-split, .featured-banner, .grid-3, .grid-2, .equipment-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. PANTALLA DE ACCESO COMERCIAL (LOGIN, REGISTRO, RECUPERACIÓN Y DEMO)
+       ========================================================================== -->
+  <div id="auth-shell">
+    <div class="container">
+
+      <!-- Barra superior con selector de Modo Oscuro / Claro -->
+      <div class="auth-top-utility">
+        <button type="button" class="btn-theme-toggle" onclick="toggleTheme()" aria-label="Cambiar entre modo claro y modo oscuro">
+          <span class="theme-toggle-label">☾ Modo Oscuro</span>
+        </button>
+      </div>
+
+      <div class="auth-grid">
+
+        <!-- Panel Izquierdo Editorial: Presentación del Servicio -->
+        <div class="auth-editorial-panel">
+          <div>
+            <!-- Logotipo Oficial Soporte >_ Aula -->
+            <svg height="40" viewBox="0 0 430 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Soporte >_ Aula">
+              <text x="2" y="47" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="600" fill="var(--slate-logo)">S</text>
+              <path d="M46 21.5 A14 14 0 1 0 64 21.5" stroke="#00D66C" stroke-width="5" stroke-linecap="round"/>
+              <line x1="55" y1="13" x2="55" y2="30" stroke="#00D66C" stroke-width="5" stroke-linecap="round"/>
+              <text x="76" y="47" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="600" fill="var(--slate-logo)" letter-spacing="-0.5">porte</text>
+              <path d="M210 21 L224 33 L210 45" stroke="#00D66C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="230" y1="47" x2="252" y2="47" stroke="#00D66C" stroke-width="5" stroke-linecap="round"/>
+              <text x="264" y="47" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="600" fill="var(--slate-logo)" letter-spacing="-0.5">Aula</text>
+            </svg>
+
+            <span class="caption" style="display: block; margin-top: 24px;">PLATAFORMA DE GESTIÓN TÉCNICA PARA CENTROS EDUCATIVOS</span>
+            <h1 class="display-serif" style="margin-top: 10px;">
+              Control centralizado de incidencias en las aulas.
+            </h1>
+            <p class="body-copy" style="margin-top: 18px;">
+              Registra y resuelve fallos de pizarras digitales, ordenadores, conexión a internet y periféricos con seguimiento en tiempo real y estadísticas de equipamiento para tu instituto.
+            </p>
+          </div>
+
+          <div style="padding-top: 24px; border-top: 1px solid var(--stone-border); display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+            <div>
+              <span class="caption">PRUEBA GRATUITA</span>
+              <div class="subheading" style="margin-top: 2px;">7 Días</div>
+              <span class="body-sm" style="color: var(--cloud-dark);">Acceso completo inicial</span>
+            </div>
+            <div>
+              <span class="caption">SEGUIMIENTO</span>
+              <div class="subheading" style="margin-top: 2px;">En Vivo</div>
+              <span class="body-sm" style="color: var(--cloud-dark);">Pendientes, activas, resueltas</span>
+            </div>
+            <div>
+              <span class="caption">ESTADÍSTICAS</span>
+              <div class="subheading" style="margin-top: 2px;">Por Aula</div>
+              <span class="body-sm" style="color: var(--cloud-dark);">Gráficos de equipamiento</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Derecho: Formularios de Autenticación -->
+        <div class="auth-form-card">
+
+          <!-- VISTA 1: INICIO DE SESIÓN CLÁSICO -->
+          <div id="pane-login" class="auth-view-pane active-auth-pane">
+            <div>
+              <span class="caption">ACCESO AL SISTEMA</span>
+              <h2 class="subheading" style="margin-top: 4px;">Iniciar sesión</h2>
+              <p class="body-sm" style="color: var(--cloud-dark); margin-top: 4px;">
+                Introduce tu correo electrónico y contraseña para acceder al panel de tu centro.
+              </p>
+            </div>
+
+            <div id="login-alert" class="alert-box" role="alert"></div>
+
+            <form id="form-login" onsubmit="handleLogin(event)" novalidate style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="field-block">
+                <label for="login-email">Correo electrónico</label>
+                <input type="email" id="login-email" class="input-clean" placeholder="nombre@instituto.edu.es" autocomplete="email" required />
+              </div>
+
+              <div class="field-block">
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                  <label for="login-password">Contraseña</label>
+                  <button type="button" class="inline-link" style="font-size: 13px;" onclick="switchAuthPane('pane-recover')">
+                    ¿Olvidaste tu contraseña?
+                  </button>
+                </div>
+                <div class="password-wrapper">
+                  <input type="password" id="login-password" class="input-clean" placeholder="Introduce tu contraseña" autocomplete="current-password" required />
+                  <button type="button" class="toggle-pass-btn" onclick="togglePass('login-password', this)">Mostrar</button>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-accent" id="btn-login-submit" style="width: 100%; margin-top: 4px;">
+                <span class="spinner" aria-hidden="true"></span>
+                <span>&gt;_ Iniciar sesión</span>
+              </button>
+            </form>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <span class="body-sm" style="color: var(--cloud-dark);">¿Aún no tienes una cuenta?</span>
+              <button type="button" class="inline-link" onclick="switchAuthPane('pane-register')">
+                Crear una cuenta (7 días de prueba gratis) &rarr;
+              </button>
+            </div>
+
+            <!-- Acceso independiente a la Demostración -->
+            <div style="padding-top: 18px; border-top: 1px solid var(--stone-border); display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;">
+              <div>
+                <span class="caption" style="display: block;">DEMOSTRACIÓN INTERACTIVA</span>
+                <span class="body-sm" style="color: var(--cloud-dark);">
+                  Conoce la plataforma por dentro mediante una sesión de demostración.
+                </span>
+              </div>
+              <button type="button" class="btn-ivory" id="btn-demo-access" onclick="handleDemoAccess()">
+                <span class="spinner" aria-hidden="true"></span>
+                <span>Probar la aplicación</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- VISTA 2: REGISTRO DE NUEVOS USUARIOS -->
+          <div id="pane-register" class="auth-view-pane">
+            <div>
+              <span class="caption">ALTA DE CUENTA · 7 DÍAS DE PRUEBA GRATUITA</span>
+              <h2 class="subheading" style="margin-top: 4px;">Crear cuenta nueva</h2>
+              <p class="body-sm" style="color: var(--cloud-dark); margin-top: 4px;">
+                Registra tu cuenta para empezar a gestionar las incidencias informáticas de tu centro con 7 días de prueba gratuita.
+              </p>
+            </div>
+
+            <div id="register-alert" class="alert-box" role="alert"></div>
+
+            <form id="form-register" onsubmit="handleRegister(event)" novalidate style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="field-block">
+                <label for="reg-name">Nombre y apellidos *</label>
+                <input type="text" id="reg-name" class="input-clean" placeholder="Ej. Laura Navarro" required />
+              </div>
+
+              <div class="field-block">
+                <label for="reg-email">Correo electrónico *</label>
+                <input type="email" id="reg-email" class="input-clean" placeholder="laura.navarro@instituto.edu.es" required />
+              </div>
+
+              <div class="grid-2">
+                <div class="field-block">
+                  <label for="reg-password">Contraseña *</label>
+                  <div class="password-wrapper">
+                    <input type="password" id="reg-password" class="input-clean" placeholder="Mín. 8 caracteres" required />
+                    <button type="button" class="toggle-pass-btn" onclick="togglePass('reg-password', this)">Mostrar</button>
+                  </div>
+                </div>
+
+                <div class="field-block">
+                  <label for="reg-confirm">Confirmar contraseña *</label>
+                  <div class="password-wrapper">
+                    <input type="password" id="reg-confirm" class="input-clean" placeholder="Repite la clave" required />
+                    <button type="button" class="toggle-pass-btn" onclick="togglePass('reg-confirm', this)">Mostrar</button>
+                  </div>
+                </div>
+              </div>
+
+              <p class="caption" style="color: var(--cloud-medium); text-transform: none;">
+                Debe incluir al menos 8 caracteres, una letra mayúscula y un número.
+              </p>
+
+              <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-family: var(--font-sans); font-size: 14px;">
+                <input type="checkbox" id="reg-terms" style="margin-top: 3px; width: 16px; height: 16px;" required />
+                <span>
+                  Acepto los <button type="button" class="inline-link" onclick="openModal('legal-modal')">Términos y Condiciones</button> y la <button type="button" class="inline-link" onclick="openModal('legal-modal')">Política de Privacidad</button>.
+                </span>
+              </label>
+
+              <button type="submit" class="btn-accent" id="btn-register-submit" style="width: 100%; margin-top: 4px;">
+                <span class="spinner" aria-hidden="true"></span>
+                <span>&gt;_ Crear cuenta y comenzar prueba</span>
+              </button>
+            </form>
+
+            <div style="padding-top: 12px; border-top: 1px solid var(--stone-border); display: flex; justify-content: space-between; align-items: center;">
+              <span class="body-sm" style="color: var(--cloud-dark);">¿Ya tienes cuenta?</span>
+              <button type="button" class="inline-link" onclick="switchAuthPane('pane-login')">&larr; Volver a iniciar sesión</button>
+            </div>
+          </div>
+
+          <!-- VISTA 3: RECUPERAR CONTRASEÑA -->
+          <div id="pane-recover" class="auth-view-pane">
+            <div>
+              <span class="caption">RECUPERACIÓN DE ACCESO</span>
+              <h2 class="subheading" style="margin-top: 4px;">Restablecer contraseña</h2>
+              <p class="body-sm" style="color: var(--cloud-dark); margin-top: 4px;">
+                Introduce el correo electrónico de tu cuenta para recibir las instrucciones de recuperación.
+              </p>
+            </div>
+
+            <div id="recover-alert" class="alert-box" role="alert"></div>
+
+            <form id="form-recover" onsubmit="handleRecovery(event)" novalidate style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="field-block">
+                <label for="recover-email">Correo electrónico</label>
+                <input type="email" id="recover-email" class="input-clean" placeholder="nombre@instituto.edu.es" required />
+              </div>
+
+              <button type="submit" class="btn-accent" id="btn-recover-submit" style="width: 100%;">
+                <span class="spinner" aria-hidden="true"></span>
+                <span>&gt;_ Enviar instrucciones</span>
+              </button>
+            </form>
+
+            <div style="padding-top: 12px; border-top: 1px solid var(--stone-border);">
+              <button type="button" class="inline-link" onclick="switchAuthPane('pane-login')">&larr; Volver al inicio de sesión</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. ÁREA PRIVADA DE LA APLICACIÓN (PROTEGIDA POR SESIÓN)
+       ========================================================================== -->
+  <div id="app-shell">
+
+    <!-- Barra Superior de Estado del Periodo de Prueba (7 Días) -->
+    <div id="trial-banner-strip" class="trial-status-strip">
+      <div class="trial-strip-inner">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span style="display: inline-block; width: 8px; height: 8px; background-color: var(--accent-green);"></span>
+          <span class="body-sm" id="trial-strip-text">Comprobando estado de la suscripción...</span>
+        </div>
+        <div>
+          <button type="button" class="inline-link" style="font-size: 13px;" onclick="showAppSection('sec-cuenta')">
+            Consultar mi plan y periodo de prueba &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navegación Principal -->
+    <header class="top-nav">
+      <div class="nav-inner">
+        <div style="display: flex; align-items: center; gap: 14px; cursor: pointer;" onclick="showAppSection('sec-listado')">
+          <svg height="28" viewBox="0 0 430 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Soporte >_ Aula">
+            <text x="2" y="47" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="600" fill="var(--slate-logo)">S</text>
+            <path d="M46 21.5 A14 14 0 1 0 64 21.5" stroke="#00D66C" stroke-width="5" stroke-linecap="round"/>
+            <line x1="55" y1="13" x2="55" y2="30" stroke="#00D66C" stroke-width="5" stroke-linecap="round"/>
+            <text x="76" y="47" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="600" fill="var(--slate-logo)" letter-spacing="-0.5">porte</text>
+            <path d="M210 21 L224 33 L210 45" stroke="#00D66C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="230" y1="47" x2="252" y2="47" stroke="#00D66C" stroke-width="5" stroke-linecap="round"/>
+            <text x="264" y="47" font-family="'Inter', system-ui, sans-serif" font-size="44" font-weight="600" fill="var(--slate-logo)" letter-spacing="-0.5">Aula</text>
+          </svg>
+        </div>
+
+        <nav aria-label="Menú principal">
+          <button type="button" class="nav-text-btn active-nav" id="tab-sec-listado" onclick="showAppSection('sec-listado')">
+            1. Incidencias
+          </button>
+          <button type="button" class="nav-text-btn" id="tab-sec-nueva" onclick="showAppSection('sec-nueva')">
+            2. Realizar Incidencia
+          </button>
+          <button type="button" class="nav-text-btn" id="tab-sec-grafico" onclick="showAppSection('sec-grafico')">
+            3. Gráfico de Incidencias
+          </button>
+          <button type="button" class="nav-text-btn" id="tab-sec-aulas" onclick="showAppSection('sec-aulas')">
+            4. Estado por Aulas
+          </button>
+          <button type="button" class="nav-text-btn" id="tab-sec-cuenta" onclick="showAppSection('sec-cuenta')">
+            5. Mi Cuenta y Planes
+          </button>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="btn-theme-toggle" onclick="toggleTheme()" aria-label="Cambiar entre modo claro y modo oscuro">
+            <span class="theme-toggle-label">☾ Modo Oscuro</span>
+          </button>
+          <div class="user-session-badge">
+            <div>
+              <div class="caption" id="nav-user-name">—</div>
+              <div class="caption" id="nav-user-meta" style="color: var(--cloud-medium); font-size: 10px;">—</div>
+            </div>
+          </div>
+          <button type="button" class="btn-ivory" style="padding: 8px 16px; font-size: 13px;" onclick="handleLogout()">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+
+      <!-- Aviso cuando el periodo de prueba de 7 días ha expirado -->
+      <div id="expired-trial-callout" class="alert-box error" style="margin-top: 28px; display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <strong style="display: block; font-size: 16px;">Tu periodo de prueba gratuito de 7 días ha finalizado.</strong>
+            <span>Tus incidencias siguen disponibles para consulta, pero para registrar o editar partes debes seleccionar un plan para tu centro.</span>
+          </div>
+          <button type="button" class="btn-ivory" onclick="showAppSection('sec-cuenta')">
+            Ver planes disponibles &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECCIÓN 1: LISTADO, BÚSQUEDA Y ESTADO DE INCIDENCIAS
+           ====================================================================== -->
+      <section id="sec-listado" class="app-section active-section">
+        <div class="header-split">
+          <div>
+            <span class="caption" id="workspace-badge-label">PANEL DE GESTIÓN DEL CENTRO</span>
+            <h1 class="heading-sans" id="workspace-welcome-title" style="margin-top: 6px;">Panel de Incidencias</h1>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <p class="body-copy">
+              Consulta las incidencias activas, pendientes y resueltas de las aulas, busca por equipo o ubicación y realiza el seguimiento de cada reparación.
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button type="button" class="btn-accent" id="btn-cta-new-incident" onclick="showAppSection('sec-nueva')">
+                +_ Realizar una Incidencia
+              </button>
+              <button type="button" class="btn-ivory" onclick="showAppSection('sec-grafico')">
+                Ver Gráfico de Incidencias &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="featured-banner">
+          <div>
+            <span class="caption">CONTROL EN TIEMPO REAL</span>
+            <h2 class="display-serif" style="margin-top: 6px;">Estado de las incidencias.</h2>
+            <p class="body-copy" style="margin-top: 10px;">
+              Seguimiento claro entre incidencias <strong>pendientes</strong>, <strong>activas</strong> (en reparación) y <strong>resueltas</strong>.
+            </p>
+          </div>
+
+          <div class="grid-3" style="background-color: var(--card-surface); border: 1px solid var(--stone-border); border-radius: var(--radius-card); padding: 22px; text-align: center;">
+            <div>
+              <span class="caption">PENDIENTES</span>
+              <div class="heading-sans" id="count-pendientes" style="font-size: 42px; margin-top: 4px;">0</div>
+              <span class="body-sm" style="color: var(--cloud-medium);">Sin atender</span>
+            </div>
+            <div style="border-left: 1px solid var(--stone-border); border-right: 1px solid var(--stone-border);">
+              <span class="caption">ACTIVAS</span>
+              <div class="heading-sans" id="count-activas" style="font-size: 42px; margin-top: 4px;">0</div>
+              <span class="body-sm" style="color: var(--cloud-medium);">En proceso</span>
+            </div>
+            <div>
+              <span class="caption" style="color: var(--accent-green-text);">RESUELTAS</span>
+              <div class="heading-sans" id="count-resueltas" style="font-size: 42px; margin-top: 4px;">0</div>
+              <span class="body-sm" style="color: var(--cloud-medium);">Solucionadas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-secondary" style="margin-bottom: 28px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <span class="caption">BUSCAR Y FILTRAR INCIDENCIAS</span>
+            <button type="button" class="inline-link" style="font-size: 13px;" onclick="resetSearchFilters()">Limpiar filtros</button>
+          </div>
+
+          <div class="grid-3">
+            <div class="field-block">
+              <label for="search-query">Buscar por texto, código o aula</label>
+              <input type="text" id="search-query" class="input-clean" placeholder="Ej. Pizarra, internet, teclado, Aula 101..." oninput="renderIncidentsList()" />
+            </div>
+            <div class="field-block">
+              <label for="filter-state">Estado</label>
+              <select id="filter-state" class="input-clean" onchange="renderIncidentsList()">
+                <option value="TODOS">Todos (Pendientes, Activas y Resueltas)</option>
+                <option value="Pendiente">Pendientes</option>
+                <option value="Activa">Activas</option>
+                <option value="Resuelta">Resueltas</option>
+              </select>
+            </div>
+            <div class="field-block">
+              <label for="filter-type">Tipo de equipo</label>
+              <select id="filter-type" class="input-clean" onchange="renderIncidentsList()">
+                <option value="TODOS">Todos los tipos</option>
+                <option value="Pizarras digitales">Pizarras digitales</option>
+                <option value="Ordenadores">Ordenadores</option>
+                <option value="Conexión a Internet">Conexión a Internet</option>
+                <option value="Teclados y periféricos">Teclados y periféricos</option>
+                <option value="Proyectores y sonido">Proyectores y sonido</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="workspace-toast" class="alert-box" style="margin-bottom: 24px;"></div>
+        <div id="incidents-cards-container" class="grid-2"></div>
+      </section>
+
+      <!-- ======================================================================
+           SECCIÓN 2: REALIZAR UNA INCIDENCIA
+           ====================================================================== -->
+      <section id="sec-nueva" class="app-section">
+        <div class="header-split">
+          <div>
+            <span class="caption">NUEVO PARTE DE AVERÍA</span>
+            <h1 class="heading-sans" style="margin-top: 6px;">Realizar una incidencia.</h1>
+          </div>
+          <div>
+            <p class="body-copy">
+              Indica el aula y el equipamiento afectado para notificar al equipo de soporte técnico del instituto.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-standard" style="max-width: 900px; margin: 0 auto; padding: 36px;">
+          <div id="duplicate-alert" class="alert-box warning" style="display: none;"></div>
+
+          <form id="create-incident-form" onsubmit="handleCreateIncident(event)" style="display: flex; flex-direction: column; gap: 22px;">
+            <div class="field-block">
+              <label>1. Categoría del fallo informático *</label>
+              <input type="hidden" id="new-type" value="Pizarras digitales" />
+              <div class="equipment-grid" style="margin-top: 6px;">
+                <div class="equip-option active-equip" onclick="selectEquipmentType('Pizarras digitales', this)">
+                  <span class="caption">TIPO 1</span>
+                  <strong class="body-sm">Pizarras digitales</strong>
+                </div>
+                <div class="equip-option" onclick="selectEquipmentType('Ordenadores', this)">
+                  <span class="caption">TIPO 2</span>
+                  <strong class="body-sm">Ordenadores</strong>
+                </div>
+                <div class="equip-option" onclick="selectEquipmentType('Conexión a Internet', this)">
+                  <span class="caption">TIPO 3</span>
+                  <strong class="body-sm">Conexión a Internet</strong>
+                </div>
+                <div class="equip-option" onclick="selectEquipmentType('Teclados y periféricos', this)">
+                  <span class="caption">TIPO 4</span>
+                  <strong class="body-sm">Teclados / Ratones</strong>
+                </div>
+                <div class="equip-option" onclick="selectEquipmentType('Proyectores y sonido', this)">
+                  <span class="caption">TIPO 5</span>
+                  <strong class="body-sm">Proyectores / Audio</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field-block">
+                <label for="new-classroom">2. Aula del instituto *</label>
+                <select id="new-classroom" class="input-clean" required onchange="checkDuplicateWarning()">
+                  <option value="Aula 101 (1º DAM)">Aula 101 (1º DAM)</option>
+                  <option value="Taller Informática 2">Taller Informática 2</option>
+                  <option value="Aula 204 (Bachillerato)">Aula 204 (Bachillerato)</option>
+                  <option value="Laboratorio de Ciencias">Laboratorio de Ciencias</option>
+                  <option value="Sala de Profesores">Sala de Profesores</option>
+                  <option value="Salón de Actos">Salón de Actos</option>
+                </select>
+              </div>
+
+              <div class="field-block">
+                <label for="new-priority">3. Urgencia *</label>
+                <select id="new-priority" class="input-clean" required>
+                  <option value="Alta">Alta — Impide dar la clase con normalidad</option>
+                  <option value="Urgente">Urgente — Bloqueo total en el aula</option>
+                  <option value="Media">Media — Falla un equipo individual</option>
+                  <option value="Baja">Baja — Aviso preventivo</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-block">
+              <label for="new-title">4. Resumen breve del problema *</label>
+              <input type="text" id="new-title" class="input-clean" placeholder="Ej. La pizarra digital no responde o el PC n.º 5 no enciende" required />
+            </div>
+
+            <div class="field-block">
+              <label for="new-desc">5. Descripción detallada *</label>
+              <textarea id="new-desc" class="input-clean" rows="3" placeholder="Explica los síntomas del fallo para facilitar su reparación..." required></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--stone-border);">
+              <button type="button" class="btn-ivory" onclick="showAppSection('sec-listado')">&larr; Volver</button>
+              <button type="submit" class="btn-accent" id="btn-submit-incident">&gt;_ Registrar Incidencia</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECCIÓN 3: CONSULTAR GRÁFICO DE TIPO DE INCIDENCIAS
+           ====================================================================== -->
+      <section id="sec-grafico" class="app-section">
+        <div class="header-split">
+          <div>
+            <span class="caption">ESTADÍSTICAS DEL CENTRO</span>
+            <h1 class="display-serif" style="margin-top: 6px;">Gráfico de tipo de incidencias.</h1>
+          </div>
+          <div>
+            <p class="body-copy">
+              Analítica en tiempo real del equipamiento que presenta mayor índice de averías y su distribución por aulas para optimizar el mantenimiento del instituto.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <article class="card-standard">
+            <span class="caption">GRÁFICO POR CATEGORÍA DE EQUIPAMIENTO</span>
+            <h2 class="subheading">Incidencias por Tipo de Equipo</h2>
+            <div id="chart-by-type" style="margin-top: 12px;"></div>
+          </article>
+
+          <article class="card-standard">
+            <span class="caption">GRÁFICO POR UBICACIÓN</span>
+            <h2 class="subheading">Incidencias por Aula</h2>
+            <div id="chart-by-classroom" style="margin-top: 12px;"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           SECCIÓN 4: ESTADO POR AULAS
+           ====================================================================== -->
+      <section id="sec-aulas" class="app-section">
+        <div class="header-split">
+          <div>
+            <span class="caption">MAPA DEL INSTITUTO</span>
+            <h1 class="heading-sans" style="margin-top: 6px;">Estado informático por aulas.</h1>
+          </div>
+          <div>
+            <p class="body-copy">
+              Revisa qué aulas tienen todo su equipamiento operativo y cuáles registran partes pendientes o en proceso de reparación.
+            </p>
+          </div>
+        </div>
+
+        <div id="classrooms-cards-grid" class="grid-3"></div>
+      </section>
+
+      <!-- ======================================================================
+           SECCIÓN 5: MI CUENTA, PRUEBA DE 7 DÍAS Y PLANES DEL SERVICIO
+           ====================================================================== -->
+      <section id="sec-cuenta" class="app-section">
+        <div class="header-split">
+          <div>
+            <span class="caption">SUSCRIPCIÓN Y PLANES PARA CENTROS</span>
+            <h1 class="heading-sans" style="margin-top: 6px;">Mi cuenta y planes disponibles.</h1>
+          </div>
+          <div>
+            <p class="body-copy">
+              Consulta el estado y los días restantes de tu periodo de prueba gratuito de 7 días y revisa las modalidades de suscripción para docentes y centros educativos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjetas de Cuenta y Prueba de 7 Días -->
+        <div class="grid-2" style="margin-bottom: 44px;">
+          <article class="card-standard">
+            <span class="caption">TITULAR DE LA CUENTA</span>
+            <h2 class="subheading" id="account-card-name">—</h2>
+            <p class="body-sm" id="account-card-email" style="color: var(--cloud-dark);">—</p>
+
+            <div style="padding-top: 14px; border-top: 1px solid var(--stone-border); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span class="caption" style="color: var(--cloud-medium);">MODALIDAD ACTUAL:</span>
+                <span class="mono-tag" id="account-access-type">—</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span class="caption" style="color: var(--cloud-medium);">PRIVACIDAD DEL ESPACIO:</span>
+                <span class="mono-tag">Datos protegidos y aislados</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card-standard">
+            <span class="caption">ESTADO DEL PERIODO DE PRUEBA GRATUITO</span>
+            <h2 class="subheading" id="trial-headline-status">Prueba gratuita de 7 días</h2>
+
+            <div style="padding-top: 10px; border-top: 1px solid var(--stone-border); display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span class="caption" style="color: var(--cloud-medium);">FECHA DE ACTIVACIÓN:</span>
+                <span class="mono-tag" id="trial-start-date">—</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span class="caption" style="color: var(--cloud-medium);">FECHA DE FINALIZACIÓN:</span>
+                <span class="mono-tag" id="trial-end-date">—</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span class="caption" style="color: var(--cloud-medium);">TIEMPO RESTANTE:</span>
+                <strong class="mono-tag" id="trial-days-left">—</strong>
+              </div>
+            </div>
+
+            <div class="chart-track" style="margin-top: 6px;">
+              <div id="trial-progress-bar" class="chart-fill top-fault" style="width: 100%;"></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Planes Comerciales del Servicio -->
+        <div>
+          <span class="caption" style="display: block; margin-bottom: 8px;">MODALIDADES DE SUSCRIPCIÓN</span>
+          <h2 class="subheading" style="margin-bottom: 20px;">Planes para Docentes y Centros Educativos</h2>
+          <div class="grid-3">
+            <article class="card-standard">
+              <span class="caption">PLAN 01 · COORDINADOR TIC</span>
+              <h3 class="subheading">Uso Individual</h3>
+              <p class="body-copy" style="font-size: 18px; color: var(--cloud-dark);">
+                Diseñado para un responsable TIC o docente que coordina el mantenimiento de sus aulas asignadas.
+              </p>
+              <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--stone-border);">
+                <div class="subheading">9 € <span class="body-sm">/ mes</span></div>
+                <span class="caption" style="color: var(--cloud-medium); display: block; margin-top: 6px;">
+                  DISPONIBLE AL FINALIZAR LA PRUEBA
+                </span>
+              </div>
+            </article>
+
+            <article class="card-standard" style="border-color: var(--slate-dark);">
+              <span class="caption" style="color: var(--accent-green-text);">PLAN 02 · DEPARTAMENTO TÉCNICO</span>
+              <h3 class="subheading">Equipo de Mantenimiento</h3>
+              <p class="body-copy" style="font-size: 18px; color: var(--cloud-dark);">
+                Incluye cuentas para profesores y técnicos informáticos, seguimiento de estados y analítica por aula.
+              </p>
+              <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--stone-border);">
+                <div class="subheading">29 € <span class="body-sm">/ mes</span></div>
+                <span class="caption" style="color: var(--cloud-medium); display: block; margin-top: 6px;">
+                  DISPONIBLE AL FINALIZAR LA PRUEBA
+                </span>
+              </div>
+            </article>
+
+            <article class="card-standard">
+              <span class="caption">PLAN 03 · INSTITUTO COMPLETO</span>
+              <h3 class="subheading">Licencia de Centro (IES)</h3>
+              <p class="body-copy" style="font-size: 18px; color: var(--cloud-dark);">
+                Acceso ilimitado para todo el claustro docente, conserjería y equipo directivo con soporte prioritario.
+              </p>
+              <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--stone-border);">
+                <div class="subheading">79 € <span class="body-sm">/ mes</span></div>
+                <span class="caption" style="color: var(--cloud-medium); display: block; margin-top: 6px;">
+                  CONTRATACIÓN PARA CENTROS EDUCATIVOS
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <span class="caption" style="color: var(--accent-green);">SOPORTE &gt;_ AULA · GESTIÓN DE INCIDENCIAS EN CENTROS EDUCATIVOS</span>
+          <p class="body-sm" style="color: #AEB7B2; margin-top: 4px;">
+            Plataforma de registro, seguimiento y resolución de averías informáticas en aulas.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" class="btn-outlined-dark" onclick="toggleTheme()">Cambiar Tema Claro / Oscuro</button>
+          <button type="button" class="btn-outlined-dark" onclick="showAppSection('sec-cuenta')">Planes y Suscripción</button>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- MODAL 1: MODIFICAR INCIDENCIA -->
+  <div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stone-border); padding-bottom: 12px;">
+        <div>
+          <span class="caption" id="edit-modal-id">MODIFICAR INCIDENCIA</span>
+          <h2 class="subheading">Editar datos y estado</h2>
+        </div>
+        <button type="button" class="btn-ivory" style="padding: 8px 14px;" onclick="closeModal('edit-modal')">Cerrar</button>
+      </div>
+
+      <form id="edit-incident-form" onsubmit="saveEditedIncident(event)" style="display: flex; flex-direction: column; gap: 14px;">
+        <input type="hidden" id="edit-id" />
+        <div class="grid-2">
+          <div class="field-block">
+            <label for="edit-classroom">Aula</label>
+            <select id="edit-classroom" class="input-clean" required>
+              <option value="Aula 101 (1º DAM)">Aula 101 (1º DAM)</option>
+              <option value="Taller Informática 2">Taller Informática 2</option>
+              <option value="Aula 204 (Bachillerato)">Aula 204 (Bachillerato)</option>
+              <option value="Laboratorio de Ciencias">Laboratorio de Ciencias</option>
+              <option value="Sala de Profesores">Sala de Profesores</option>
+              <option value="Salón de Actos">Salón de Actos</option>
+            </select>
+          </div>
+          <div class="field-block">
+            <label for="edit-type">Tipo de Incidencia</label>
+            <select id="edit-type" class="input-clean" required>
+              <option value="Pizarras digitales">Pizarras digitales</option>
+              <option value="Ordenadores">Ordenadores</option>
+              <option value="Conexión a Internet">Conexión a Internet</option>
+              <option value="Teclados y periféricos">Teclados y periféricos</option>
+              <option value="Proyectores y sonido">Proyectores y sonido</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field-block">
+            <label for="edit-state">Estado</label>
+            <select id="edit-state" class="input-clean" required>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Activa">Activa (En proceso)</option>
+              <option value="Resuelta">Resuelta</option>
+            </select>
+          </div>
+          <div class="field-block">
+            <label for="edit-priority">Urgencia</label>
+            <select id="edit-priority" class="input-clean" required>
+              <option value="Urgente">Urgente</option>
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label for="edit-title">Resumen del fallo</label>
+          <input type="text" id="edit-title" class="input-clean" required />
+        </div>
+        <div class="field-block">
+          <label for="edit-desc">Descripción detallada</label>
+          <textarea id="edit-desc" class="input-clean" rows="2" required></textarea>
+        </div>
+        <div class="field-block">
+          <label for="edit-tech-note">Nota de seguimiento técnico</label>
+          <input type="text" id="edit-tech-note" class="input-clean" />
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; padding-top: 10px; border-top: 1px solid var(--stone-border);">
+          <button type="button" class="btn-ivory" onclick="closeModal('edit-modal')">Cancelar</button>
+          <button type="submit" class="btn-accent">&gt;_ Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: TÉRMINOS Y PRIVACIDAD -->
+  <div class="modal-overlay" id="legal-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stone-border); padding-bottom: 12px;">
+        <h2 class="subheading">Términos de Uso y Política de Privacidad</h2>
+        <button type="button" class="btn-ivory" style="padding: 8px 14px;" onclick="closeModal('legal-modal')">Cerrar</button>
+      </div>
+      <p class="body-copy" style="font-size: 18px;">
+        <strong>1. Privacidad y Aislamiento de Espacios:</strong> Cada cuenta registrada en <strong>Soporte &gt;_ Aula</strong> cuenta con un espacio privado de trabajo para garantizar la confidencialidad de los partes técnicos del centro.
+      </p>
+      <p class="body-copy" style="font-size: 18px;">
+        <strong>2. Protección de Credenciales:</strong> Las contraseñas se almacenan de forma cifrada mediante algoritmos unidireccionales y nunca en texto plano.
+      </p>
+      <p class="body-copy" style="font-size: 18px;">
+        <strong>3. Periodo de Prueba Gratuito:</strong> Todas las cuentas nuevas disponen de 7 días naturales de prueba gratuita desde el momento de su registro.
+      </p>
+      <div style="display: flex; justify-content: flex-end;">
+        <button type="button" class="btn-accent" onclick="closeModal('legal-modal')">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       LÓGICA DE LA APLICACIÓN (MOTOR INTERNO + AUTENTICACIÓN + PRUEBA DE 7 DÍAS)
+       ========================================================================== -->
+  <script>
+    const APP_CONFIG = {
+      TRIAL_DURATION_DAYS: 7,
+      TRIAL_WARNING_DAYS: 2,
+      DB_STORAGE_KEY: "soporte_aula_json_database_v3",
+      SESSION_STORAGE_KEY: "soporte_aula_active_session_v3",
+      THEME_STORAGE_KEY: "soporte_aula_theme_pref"
+    };
+
+    const INITIAL_DATA = {
+      metadata: {
+        trialDurationDays: APP_CONFIG.TRIAL_DURATION_DAYS,
+        preferredTheme: "light",
+        updatedAt: new Date().toISOString()
+      },
+      classrooms: [
+        { name: "Aula 101 (1º DAM)", floor: "Planta 1 · Ciclos Formativos", equipment: "Pizarra digital, 24 ordenadores, red cableada y WiFi" },
+        { name: "Taller Informática 2", floor: "Planta 1 · Ala Técnica", equipment: "Proyector, 30 ordenadores de prácticas y switch de red" },
+        { name: "Aula 204 (Bachillerato)", floor: "Planta 2 · Pabellón General", equipment: "Pizarra digital interactiva, PC del profesor y altavoces" },
+        { name: "Laboratorio de Ciencias", floor: "Planta 2 · Ala Norte", equipment: "Pizarra digital, portátil de cátedra y conexión WiFi" },
+        { name: "Sala de Profesores", floor: "Planta Baja · Edificio Central", equipment: "6 ordenadores de consulta, impresoras de red y WiFi" },
+        { name: "Salón de Actos", floor: "Planta Baja · Anexo", equipment: "Proyector principal, equipo de sonido y PC de cabina" }
+      ],
+      users: [],
+      incidents: []
+    };
+
+    let activeSession = null;
+
+    // Control de Tema Claro / Oscuro
+    function applyTheme(themeName) {
+      const validTheme = themeName === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", validTheme);
+      localStorage.setItem(APP_CONFIG.THEME_STORAGE_KEY, validTheme);
+
+      const labelText = validTheme === "dark" ? "☀ Modo Claro" : "☾ Modo Oscuro";
+      document.querySelectorAll(".theme-toggle-label").forEach(el => {
+        el.textContent = labelText;
+      });
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+      const db = readStore();
+      db.metadata.preferredTheme = next;
+      writeStore(db);
+    }
+
+    // Persistencia interna transparente en formato JSON
+    function readStore() {
+      try {
+        const raw = localStorage.getItem(APP_CONFIG.DB_STORAGE_KEY);
+        if (!raw) {
+          writeStore(INITIAL_DATA);
+          return JSON.parse(JSON.stringify(INITIAL_DATA));
+        }
+        const parsed = JSON.parse(raw);
+        if (!parsed.users || !parsed.incidents || !parsed.classrooms) {
+          writeStore(INITIAL_DATA);
+          return JSON.parse(JSON.stringify(INITIAL_DATA));
+        }
+        return parsed;
+      } catch {
+        return JSON.parse(JSON.stringify(INITIAL_DATA));
+      }
+    }
+
+    function writeStore(dbObject) {
+      dbObject.metadata = {
+        ...dbObject.metadata,
+        trialDurationDays: APP_CONFIG.TRIAL_DURATION_DAYS,
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem(APP_CONFIG.DB_STORAGE_KEY, JSON.stringify(dbObject));
+    }
+
+    // Criptografía PBKDF2-SHA256 y evaluación del Periodo de Prueba de 7 días
+    async function generateSaltHex() {
+      const arr = new Uint8Array(16);
+      window.crypto.getRandomValues(arr);
+      return Array.from(arr).map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    async function hashPassword(password, saltHex) {
+      const enc = new TextEncoder();
+      const key = await window.crypto.subtle.importKey("raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveBits"]);
+      const bits = await window.crypto.subtle.deriveBits(
+        { name: "PBKDF2", salt: enc.encode(saltHex), iterations: 100000, hash: "SHA-256" },
+        key,
+        256
+      );
+      return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function evaluateTrialStatus(userRecord) {
+      if (userRecord.isDemo) {
+        return {
+          isDemo: true,
+          isExpired: false,
+          isExpiringSoon: false,
+          daysRemaining: APP_CONFIG.TRIAL_DURATION_DAYS,
+          percentRemaining: 100,
+          startFormatted: "Sesión de demostración",
+          endFormatted: "Acceso demostrativo acotado"
+        };
+      }
+
+      const nowMs = Date.now();
+      const startMs = Number(userRecord.trialStartAt);
+      const endMs = Number(userRecord.trialEndsAt);
+      const totalMs = Math.max(1, endMs - startMs);
+      const remainingMs = endMs - nowMs;
+      const daysRemaining = Math.max(0, Math.ceil(remainingMs / (1000 * 60 * 60 * 24)));
+      const isExpired = remainingMs <= 0;
+      const isExpiringSoon = !isExpired && daysRemaining <= APP_CONFIG.TRIAL_WARNING_DAYS;
+      const percentRemaining = Math.max(0, Math.min(100, Math.round((remainingMs / totalMs) * 100)));
+
+      const fmt = new Intl.DateTimeFormat("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+      return {
+        isDemo: false,
+        isExpired,
+        isExpiringSoon,
+        daysRemaining,
+        percentRemaining,
+        startFormatted: fmt.format(new Date(startMs)),
+        endFormatted: fmt.format(new Date(endMs))
+      };
+    }
+
+    function createStarterIncidents(ownerId, ownerName) {
+      return [
+        {
+          id: "INC-101",
+          ownerId,
+          classroom: "Aula 101 (1º DAM)",
+          type: "Pizarras digitales",
+          priority: "Urgente",
+          title: "La pizarra digital no detecta el puntero táctil ni proyecta imagen",
+          desc: "Al encender el equipo a primera hora, la pantalla táctil no responde.",
+          state: "Pendiente",
+          authorName: ownerName,
+          date: "Hoy · 08:25",
+          techNote: "Parte registrado. Pendiente de revisión por el equipo técnico."
+        },
+        {
+          id: "INC-102",
+          ownerId,
+          classroom: "Taller Informática 2",
+          type: "Conexión a Internet",
+          priority: "Alta",
+          title: "Sin conexión a internet en la fila 2 de ordenadores",
+          desc: "Los ordenadores del taller no tienen acceso a la red del centro.",
+          state: "Activa",
+          authorName: ownerName,
+          date: "Hoy · 09:40",
+          techNote: "En reparación: verificando el switch de red del aula."
+        },
+        {
+          id: "INC-103",
+          ownerId,
+          classroom: "Aula 204 (Bachillerato)",
+          type: "Teclados y periféricos",
+          priority: "Media",
+          title: "Teclado del ordenador del profesor con teclas bloqueadas",
+          desc: "Fallan varias teclas al introducir las credenciales de la sesión docente.",
+          state: "Resuelta",
+          authorName: ownerName,
+          date: "Ayer · 11:15",
+          techNote: "Resuelta: Sustituido por un teclado USB nuevo."
+        }
+      ];
+    }
+
+    // Autenticación: Login, Registro, Recuperación y Demo
+    function switchAuthPane(paneId) {
+      document.querySelectorAll(".auth-view-pane").forEach(p => p.classList.remove("active-auth-pane"));
+      document.getElementById(paneId).classList.add("active-auth-pane");
+      ["login-alert", "register-alert", "recover-alert"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.className = "alert-box"; el.textContent = ""; }
+      });
+    }
+
+    function showAuthAlert(id, type, msg) {
+      const el = document.getElementById(id);
+      el.className = "alert-box " + type;
+      el.textContent = msg;
+    }
+
+    function togglePass(inputId, btn) {
+      const input = document.getElementById(inputId);
+      input.type = input.type === "password" ? "text" : "password";
+      btn.textContent = input.type === "password" ? "Mostrar" : "Ocultar";
+    }
+
+    function setLoading(btnId, state) {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      btn.disabled = state;
+      btn.classList.toggle("loading", state);
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById("reg-name").value.trim();
+      const email = document.getElementById("reg-email").value.trim().toLowerCase();
+      const pass = document.getElementById("reg-password").value;
+      const confirm = document.getElementById("reg-confirm").value;
+      const terms = document.getElementById("reg-terms").checked;
+
+      if (!name || !email || !pass || !confirm) {
+        showAuthAlert("register-alert", "error", "Completa todos los campos obligatorios.");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAuthAlert("register-alert", "error", "Introduce un correo electrónico válido.");
+        return;
+      }
+      if (!/^(?=.*[A-Z])(?=.*\d).{8,}$/.test(pass)) {
+        showAuthAlert("register-alert", "error", "La contraseña debe tener mínimo 8 caracteres, una mayúscula y un número.");
+        return;
+      }
+      if (pass !== confirm) {
+        showAuthAlert("register-alert", "error", "Las contraseñas no coinciden.");
+        return;
+      }
+      if (!terms) {
+        showAuthAlert("register-alert", "error", "Debes aceptar los Términos y la Política de Privacidad.");
+        return;
+      }
+
+      setLoading("btn-register-submit", true);
+      await new Promise(r => setTimeout(r, 450));
+
+      const db = readStore();
+      if (db.users.some(u => u.email === email)) {
+        setLoading("btn-register-submit", false);
+        showAuthAlert("register-alert", "error", "Este correo electrónico ya está asociado a una cuenta registrada.");
+        return;
+      }
+
+      const salt = await generateSaltHex();
+      const passwordHash = await hashPassword(pass, salt);
+      const now = Date.now();
+      const newUser = {
+        id: "usr_" + now.toString(36),
+        name,
+        email,
+        salt,
+        passwordHash,
+        trialStartAt: now,
+        trialEndsAt: now + APP_CONFIG.TRIAL_DURATION_DAYS * 24 * 60 * 60 * 1000,
+        isDemo: false
+      };
+
+      db.users.push(newUser);
+      db.incidents.unshift(...createStarterIncidents(newUser.id, newUser.name));
+      writeStore(db);
+
+      setLoading("btn-register-submit", false);
+      document.getElementById("form-register").reset();
+      startSession(newUser, "Bienvenido a Soporte >_ Aula. Tu periodo de prueba gratuito de 7 días está activo.");
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim().toLowerCase();
+      const pass = document.getElementById("login-password").value;
+
+      if (!email || !pass) {
+        showAuthAlert("login-alert", "error", "Introduce tu correo electrónico y tu contraseña.");
+        return;
+      }
+
+      setLoading("btn-login-submit", true);
+      await new Promise(r => setTimeout(r, 400));
+
+      const db = readStore();
+      const user = db.users.find(u => u.email === email);
+      if (!user) {
+        setLoading("btn-login-submit", false);
+        showAuthAlert("login-alert", "error", "El correo electrónico o la contraseña no son correctos.");
+        return;
+      }
+
+      const hash = await hashPassword(pass, user.salt);
+      if (hash !== user.passwordHash) {
+        setLoading("btn-login-submit", false);
+        showAuthAlert("login-alert", "error", "El correo electrónico o la contraseña no son correctos.");
+        return;
+      }
+
+      setLoading("btn-login-submit", false);
+      document.getElementById("form-login").reset();
+      startSession(user);
+    }
+
+    async function handleRecovery(e) {
+      e.preventDefault();
+      const email = document.getElementById("recover-email").value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAuthAlert("recover-alert", "error", "Introduce un correo electrónico válido.");
+        return;
+      }
+      setLoading("btn-recover-submit", true);
+      await new Promise(r => setTimeout(r, 400));
+      setLoading("btn-recover-submit", false);
+      showAuthAlert("recover-alert", "success", "Si el correo introducido está registrado, recibirás un enlace para restablecer tu contraseña.");
+    }
+
+    async function handleDemoAccess() {
+      setLoading("btn-demo-access", true);
+      await new Promise(r => setTimeout(r, 350));
+
+      const demoUser = {
+        id: "demo_sandbox_user",
+        name: "Cuenta de Demostración",
+        email: "demo@soporte-aula.edu.es",
+        isDemo: true,
+        trialStartAt: Date.now(),
+        trialEndsAt: Date.now() + APP_CONFIG.TRIAL_DURATION_DAYS * 24 * 60 * 60 * 1000
+      };
+
+      const db = readStore();
+      if (!db.incidents.some(i => i.ownerId === demoUser.id)) {
+        db.incidents.unshift(...createStarterIncidents(demoUser.id, "Docente (Demostración)"));
+        writeStore(db);
+      }
+
+      setLoading("btn-demo-access", false);
+      startSession(demoUser, "Has accedido al entorno de demostración con permisos acotados.");
+    }
+
+    // Gestión de Sesión y Vistas Privadas
+    function startSession(user, flashMsg = null) {
+      activeSession = { userId: user.id, name: user.name, email: user.email, isDemo: Boolean(user.isDemo) };
+      sessionStorage.setItem(APP_CONFIG.SESSION_STORAGE_KEY, JSON.stringify(activeSession));
+
+      document.getElementById("auth-shell").style.display = "none";
+      document.getElementById("app-shell").style.display = "flex";
+      showAppSection("sec-listado");
+      if (flashMsg) showWorkspaceToast("success", flashMsg);
+    }
+
+    function handleLogout() {
+      activeSession = null;
+      sessionStorage.removeItem(APP_CONFIG.SESSION_STORAGE_KEY);
+      document.getElementById("app-shell").style.display = "none";
+      document.getElementById("auth-shell").style.display = "flex";
+      switchAuthPane("pane-login");
+    }
+
+    function getCurrentUserRecord() {
+      if (!activeSession) return null;
+      if (activeSession.isDemo) {
+        return {
+          id: "demo_sandbox_user",
+          name: "Cuenta de Demostración",
+          email: "demo@soporte-aula.edu.es",
+          isDemo: true,
+          trialStartAt: Date.now(),
+          trialEndsAt: Date.now() + 7 * 86400000
+        };
+      }
+      const db = readStore();
+      return db.users.find(u => u.id === activeSession.userId) || null;
+    }
+
+    function showAppSection(secId) {
+      const user = getCurrentUserRecord();
+      if (!user) { handleLogout(); return; }
+
+      document.querySelectorAll(".app-section").forEach(s => s.classList.remove("active-section"));
+      document.getElementById(secId).classList.add("active-section");
+
+      document.querySelectorAll(".top-nav .nav-text-btn").forEach(b => b.classList.remove("active-nav"));
+      const tab = document.getElementById("tab-" + secId);
+      if (tab) tab.classList.add("active-nav");
+
+      if (secId === "sec-nueva") checkDuplicateWarning();
+      renderAuthenticatedWorkspace();
+    }
+
+    function renderAuthenticatedWorkspace() {
+      const user = getCurrentUserRecord();
+      if (!user) return;
+
+      const trial = evaluateTrialStatus(user);
+      document.getElementById("nav-user-name").textContent = user.name;
+      document.getElementById("nav-user-meta").textContent = user.isDemo
+        ? "MODO DEMOSTRACIÓN"
+        : `PRUEBA: ${trial.daysRemaining} DÍA(S) RESTANTE(S)`;
+
+      document.getElementById("workspace-welcome-title").textContent = `Hola, ${user.name}.`;
+
+      const strip = document.getElementById("trial-banner-strip");
+      const stripText = document.getElementById("trial-strip-text");
+      const expiredCallout = document.getElementById("expired-trial-callout");
+      const btnNew = document.getElementById("btn-cta-new-incident");
+      const btnSubmit = document.getElementById("btn-submit-incident");
+
+      strip.className = "trial-status-strip";
+      if (trial.isDemo) {
+        stripText.innerHTML = `<strong>Sesión de demostración activa:</strong> Explora las funciones con datos de ejemplo y permisos acotados.`;
+        expiredCallout.style.display = "none";
+        btnNew.disabled = false;
+        btnSubmit.disabled = false;
+      } else if (trial.isExpired) {
+        strip.classList.add("expired");
+        stripText.innerHTML = `<strong>Periodo de prueba finalizado:</strong> Tu prueba gratuita de 7 días concluyó el ${trial.endFormatted}.`;
+        expiredCallout.style.display = "block";
+        btnNew.disabled = true;
+        btnSubmit.disabled = true;
+      } else if (trial.isExpiringSoon) {
+        strip.classList.add("expiring-soon");
+        stripText.innerHTML = `<strong>Aviso de suscripción:</strong> Te quedan <strong>${trial.daysRemaining} día(s)</strong> de tu prueba gratuita de 7 días.`;
+        expiredCallout.style.display = "none";
+        btnNew.disabled = false;
+        btnSubmit.disabled = false;
+      } else {
+        stripText.innerHTML = `<strong>Periodo de prueba gratuito activo:</strong> Dispones de <strong>${trial.daysRemaining} días restantes</strong> (válido hasta el ${trial.endFormatted}).`;
+        expiredCallout.style.display = "none";
+        btnNew.disabled = false;
+        btnSubmit.disabled = false;
+      }
+
+      document.getElementById("account-card-name").textContent = user.name;
+      document.getElementById("account-card-email").textContent = user.email;
+      document.getElementById("account-access-type").textContent = user.isDemo ? "Demostración (Permisos Limitados)" : "Prueba Gratuita (7 Días)";
+      document.getElementById("trial-headline-status").textContent = trial.isDemo
+        ? "Modo Demostración"
+        : trial.isExpired
+          ? "Periodo de prueba finalizado"
+          : `${trial.daysRemaining} de ${APP_CONFIG.TRIAL_DURATION_DAYS} días disponibles`;
+      document.getElementById("trial-start-date").textContent = trial.startFormatted;
+      document.getElementById("trial-end-date").textContent = trial.endFormatted;
+      document.getElementById("trial-days-left").textContent = trial.isDemo ? "Sesión Demo" : `${trial.daysRemaining} día(s)`;
+      document.getElementById("trial-progress-bar").style.width = `${trial.percentRemaining}%`;
+
+      const db = readStore();
+      const myIncidents = db.incidents.filter(i => i.ownerId === user.id);
+
+      document.getElementById("count-pendientes").textContent = myIncidents.filter(i => i.state === "Pendiente").length;
+      document.getElementById("count-activas").textContent = myIncidents.filter(i => i.state === "Activa").length;
+      document.getElementById("count-resueltas").textContent = myIncidents.filter(i => i.state === "Resuelta").length;
+
+      renderIncidentsList();
+      renderCharts();
+      renderClassroomsGrid();
+    }
+
+    // Gestión de Incidencias (CRUD)
+    function resetSearchFilters() {
+      document.getElementById("search-query").value = "";
+      document.getElementById("filter-state").value = "TODOS";
+      document.getElementById("filter-type").value = "TODOS";
+      renderIncidentsList();
+    }
+
+    function renderIncidentsList() {
+      const user = getCurrentUserRecord();
+      if (!user) return;
+      const trial = evaluateTrialStatus(user);
+      const db = readStore();
+
+      const q = (document.getElementById("search-query")?.value || "").toLowerCase().trim();
+      const st = document.getElementById("filter-state")?.value || "TODOS";
+      const tp = document.getElementById("filter-type")?.value || "TODOS";
+
+      const list = db.incidents.filter(i => {
+        if (i.ownerId !== user.id) return false;
+        const matchSt = st === "TODOS" || i.state === st;
+        const matchTp = tp === "TODOS" || i.type === tp;
+        const matchQ = !q || i.title.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q) || i.classroom.toLowerCase().includes(q) || i.id.toLowerCase().includes(q);
+        return matchSt && matchTp && matchQ;
+      });
+
+      const container = document.getElementById("incidents-cards-container");
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="card-standard" style="grid-column: 1 / -1; text-align: center; padding: 44px;">
+            <h3 class="subheading">No se encontraron incidencias</h3>
+            <p class="body-copy" style="color: var(--cloud-dark);">No hay partes registrados con los criterios seleccionados.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <article class="card-standard">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <span class="mono-tag" style="font-weight: 600;">${item.id}</span>
+              <span class="caption" style="margin-left: 8px; color: var(--cloud-dark);">${item.classroom}</span>
+            </div>
+            <span class="caption">Urgencia: ${item.priority} · ${item.date}</span>
+          </div>
+
+          <div>
+            <span class="caption" style="color: var(--accent-green-text);">${item.type}</span>
+            <h3 class="subheading" style="margin-top: 4px;">${item.title}</h3>
+            <p class="body-copy" style="margin-top: 6px; font-size: 19px;">${item.desc}</p>
+          </div>
+
+          <div class="status-stepper">
+            <div class="step-pill ${item.state === 'Pendiente' ? 'current-step' : ''}">1. Pendiente</div>
+            <div class="step-pill ${item.state === 'Activa' ? 'current-step' : ''}">2. Activa</div>
+            <div class="step-pill ${item.state === 'Resuelta' ? 'resolved-step' : ''}">3. Resuelta</div>
+          </div>
+
+          <div style="background-color: var(--canvas-bg); padding: 10px 14px; border: 1px solid var(--stone-border);">
+            <span class="caption">SEGUIMIENTO TÉCNICO:</span>
+            <p class="body-sm" style="margin-top: 2px; color: var(--cloud-dark);">${item.techNote}</p>
+          </div>
+
+          <div style="margin-top: auto; padding-top: 12px; border-top: 1px solid var(--stone-border); display: flex; justify-content: space-between; align-items: center;">
+            <span class="caption" style="color: var(--cloud-medium);">Reportado por: ${item.authorName}</span>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn-ivory" style="padding: 7px 14px; font-size: 13px;" ${trial.isExpired ? 'disabled' : ''} onclick="openEditModal('${item.id}')">Modificar</button>
+              <button type="button" class="btn-ivory" style="padding: 7px 14px; font-size: 13px;" ${trial.isExpired ? 'disabled' : ''} onclick="handleDeleteIncident('${item.id}')">Eliminar</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function selectEquipmentType(typeName, el) {
+      document.getElementById("new-type").value = typeName;
+      document.querySelectorAll(".equip-option").forEach(c => c.classList.remove("active-equip"));
+      el.classList.add("active-equip");
+      checkDuplicateWarning();
+    }
+
+    function checkDuplicateWarning() {
+      const user = getCurrentUserRecord();
+      if (!user) return;
+      const classroom = document.getElementById("new-classroom").value;
+      const type = document.getElementById("new-type").value;
+      const alertBox = document.getElementById("duplicate-alert");
+      const db = readStore();
+
+      const dup = db.incidents.find(i => i.ownerId === user.id && i.classroom === classroom && i.type === type && i.state !== "Resuelta");
+      if (dup) {
+        alertBox.style.display = "block";
+        alertBox.innerHTML = `<strong>Aviso:</strong> Ya existe una incidencia activa en <strong>${classroom}</strong> sobre <strong>${type}</strong> (${dup.id}).`;
+      } else {
+        alertBox.style.display = "none";
+      }
+    }
+
+    function handleCreateIncident(e) {
+      e.preventDefault();
+      const user = getCurrentUserRecord();
+      if (!user) return;
+      if (evaluateTrialStatus(user).isExpired) { showAppSection("sec-cuenta"); return; }
+
+      const db = readStore();
+      const myCount = db.incidents.filter(i => i.ownerId === user.id).length;
+      const newId = "INC-" + (101 + myCount);
+      const now = new Date();
+      const timeStr = "Hoy · " + String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+
+      db.incidents.unshift({
+        id: newId,
+        ownerId: user.id,
+        classroom: document.getElementById("new-classroom").value,
+        type: document.getElementById("new-type").value,
+        priority: document.getElementById("new-priority").value,
+        title: document.getElementById("new-title").value.trim(),
+        desc: document.getElementById("new-desc").value.trim(),
+        state: "Pendiente",
+        authorName: user.name,
+        date: timeStr,
+        techNote: "Parte registrado. Pendiente de asignación técnica."
+      });
+
+      writeStore(db);
+      document.getElementById("create-incident-form").reset();
+      showAppSection("sec-listado");
+      showWorkspaceToast("success", `Incidencia ${newId} registrada correctamente.`);
+    }
+
+    function openEditModal(id) {
+      const user = getCurrentUserRecord();
+      const db = readStore();
+      const item = db.incidents.find(i => i.id === id && i.ownerId === user.id);
+      if (!item) return;
+
+      document.getElementById("edit-id").value = item.id;
+      document.getElementById("edit-modal-id").textContent = "MODIFICAR · " + item.id;
+      document.getElementById("edit-classroom").value = item.classroom;
+      document.getElementById("edit-type").value = item.type;
+      document.getElementById("edit-state").value = item.state;
+      document.getElementById("edit-priority").value = item.priority;
+      document.getElementById("edit-title").value = item.title;
+      document.getElementById("edit-desc").value = item.desc;
+      document.getElementById("edit-tech-note").value = item.techNote;
+      openModal("edit-modal");
+    }
+
+    function saveEditedIncident(e) {
+      e.preventDefault();
+      const user = getCurrentUserRecord();
+      const id = document.getElementById("edit-id").value;
+      const db = readStore();
+
+      db.incidents = db.incidents.map(item => {
+        if (item.id === id && item.ownerId === user.id) {
+          return {
+            ...item,
+            classroom: document.getElementById("edit-classroom").value,
+            type: document.getElementById("edit-type").value,
+            state: document.getElementById("edit-state").value,
+            priority: document.getElementById("edit-priority").value,
+            title: document.getElementById("edit-title").value.trim(),
+            desc: document.getElementById("edit-desc").value.trim(),
+            techNote: document.getElementById("edit-tech-note").value.trim() || "Seguimiento actualizado."
+          };
+        }
+        return item;
+      });
+
+      writeStore(db);
+      closeModal("edit-modal");
+      renderAuthenticatedWorkspace();
+      showWorkspaceToast("success", `Los cambios de la incidencia ${id} se han guardado correctamente.`);
+    }
+
+    function handleDeleteIncident(id) {
+      const user = getCurrentUserRecord();
+      if (user.isDemo) {
+        showWorkspaceToast("warning", "Permiso acotado en modo demostración: crea una cuenta gratuita para gestionar y eliminar tus propios registros.");
+        return;
+      }
+      const db = readStore();
+      db.incidents = db.incidents.filter(i => !(i.id === id && i.ownerId === user.id));
+      writeStore(db);
+      renderAuthenticatedWorkspace();
+      showWorkspaceToast("success", `La incidencia ${id} ha sido eliminada.`);
+    }
+
+    function renderCharts() {
+      const user = getCurrentUserRecord();
+      const db = readStore();
+      const myIncidents = db.incidents.filter(i => i.ownerId === user.id);
+      const total = Math.max(myIncidents.length, 1);
+      const types = ["Pizarras digitales", "Ordenadores", "Conexión a Internet", "Teclados y periféricos", "Proyectores y sonido"];
+
+      document.getElementById("chart-by-type").innerHTML = types.map(t => {
+        const count = myIncidents.filter(i => i.type === t).length;
+        const pct = Math.round((count / total) * 100);
+        return `
+          <div class="chart-row">
+            <div class="chart-row-header"><strong class="body-sm">${t}</strong><span class="mono-tag">${count} (${pct}%)</span></div>
+            <div class="chart-track"><div class="chart-fill ${count > 0 ? 'top-fault' : ''}" style="width: ${Math.max(pct, 3)}%;"></div></div>
+          </div>`;
+      }).join("");
+
+      document.getElementById("chart-by-classroom").innerHTML = db.classrooms.map(r => {
+        const count = myIncidents.filter(i => i.classroom === r.name).length;
+        const pct = Math.round((count / total) * 100);
+        return `
+          <div class="chart-row">
+            <div class="chart-row-header"><strong class="body-sm">${r.name}</strong><span class="mono-tag">${count} (${pct}%)</span></div>
+            <div class="chart-track"><div class="chart-fill" style="width: ${Math.max(pct, 3)}%;"></div></div>
+          </div>`;
+      }).join("");
+    }
+
+    function renderClassroomsGrid() {
+      const user = getCurrentUserRecord();
+      const db = readStore();
+      const myIncidents = db.incidents.filter(i => i.ownerId === user.id);
+
+      document.getElementById("classrooms-cards-grid").innerHTML = db.classrooms.map(r => {
+        const openCount = myIncidents.filter(i => i.classroom === r.name && i.state !== "Resuelta").length;
+        return `
+          <article class="card-standard">
+            <div style="display: flex; justify-content: space-between;">
+              <span class="caption">${r.floor}</span>
+              <span class="caption" style="color: ${openCount === 0 ? 'var(--accent-green-text)' : 'var(--slate-dark)'};">
+                ${openCount === 0 ? '● OPERATIVA' : `● ${openCount} ACTIVA(S)`}
+              </span>
+            </div>
+            <h3 class="subheading">${r.name}</h3>
+            <p class="body-copy" style="font-size: 18px; color: var(--cloud-dark);">${r.equipment}</p>
+            <div style="margin-top: auto; padding-top: 12px; border-top: 1px solid var(--stone-border);">
+              <button type="button" class="btn-accent" style="padding: 8px 16px; font-size: 13px;" onclick="reportInRoom('${r.name}')">+_ Reportar aquí</button>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    function reportInRoom(name) {
+      document.getElementById("new-classroom").value = name;
+      showAppSection("sec-nueva");
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add("open"); }
+    function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+
+    function showWorkspaceToast(type, msg) {
+      const el = document.getElementById("workspace-toast");
+      el.className = "alert-box " + type;
+      el.textContent = msg;
+      setTimeout(() => { el.className = "alert-box"; el.style.display = "none"; }, 4500);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const db = readStore();
+      const savedTheme = localStorage.getItem(APP_CONFIG.THEME_STORAGE_KEY) || (db.metadata && db.metadata.preferredTheme) || "light";
+      applyTheme(savedTheme);
+
+      try {
+        const saved = JSON.parse(sessionStorage.getItem(APP_CONFIG.SESSION_STORAGE_KEY));
+        if (saved && saved.userId) {
+          activeSession = saved;
+          const verified = getCurrentUserRecord();
+          if (verified) startSession(verified);
+        }
+      } catch {
+        sessionStorage.removeItem(APP_CONFIG.SESSION_STORAGE_KEY);
+      }
+    });
+  </script>
+</body>
+</html>
